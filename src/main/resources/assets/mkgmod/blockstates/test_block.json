@@ -1,0 +1,5 @@
+{
+  "variants": {
+    "": { "model": "mkgmod:block/test_block" }
+  }
+}
