@@ -1,0 +1,4 @@
+/give @a mkgmod:test_food
+/give @a mkgmod:test_block
+/gamemode creative
+/gamemode survival
