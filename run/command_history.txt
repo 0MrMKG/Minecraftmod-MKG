@@ -2,3 +2,9 @@
 /give @a mkgmod:test_block
 /gamemode creative
 /gamemode survival
+/locate biome mkgmod:sand_biome
+/locate biome #c:is_aquatic_icy
+/tp -115 87 -1830
+/locate biome mkgmod:sand_biome
+/locate biome mkgmod:tatooine_plains
+/tp -616 92 -109

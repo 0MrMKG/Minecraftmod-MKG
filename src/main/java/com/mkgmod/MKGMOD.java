@@ -4,6 +4,8 @@ import com.mkgmod.init.ModBlockEntities;
 import com.mkgmod.item.ModItems;
 import com.mkgmod.registery.ModBlockItems;
 import com.mkgmod.registery.ModBlocks;
+import com.mkgmod.worldgen.MKGRegion;
+import net.minecraft.resources.ResourceLocation;
 import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;
@@ -34,6 +36,7 @@ import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
+import terrablender.api.Regions;
 
 import static com.mkgmod.registery.ModBlockItems.TEST_BLOCK2_ITEM;
 import static com.mkgmod.registery.ModBlockItems.TEST_BLOCK_ITEM;
@@ -65,7 +68,6 @@ public class MKGMOD {
 
         // Register the item to a creative tab
         modEventBus.addListener(this::addCreative);
-
         // Register our mod's ModConfigSpec so that FML can create and load the config file for us
         modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
     }
@@ -73,12 +75,17 @@ public class MKGMOD {
     private void commonSetup(FMLCommonSetupEvent event) {
         // Some common setup code
         LOGGER.info("HELLO FROM COMMON SETUP");
-
         if (Config.LOG_DIRT_BLOCK.getAsBoolean()) {
             LOGGER.info("DIRT BLOCK >> {}", BuiltInRegistries.BLOCK.getKey(Blocks.DIRT));
         }
-
         LOGGER.info("{}{}", Config.MAGIC_NUMBER_INTRODUCTION.get(), Config.MAGIC_NUMBER.getAsInt());
+
+        event.enqueueWork(() -> {
+            // 注册你的自定义区域
+            // 参数 1: 区域 ID
+            // 参数 2: 权重。权重高则你的生物群系更常见
+            Regions.register(new MKGRegion(ResourceLocation.fromNamespaceAndPath("mkgmod", "overworld_region"), 100));
+        });
 
         Config.ITEM_STRINGS.get().forEach((item) -> LOGGER.info("ITEM >> {}", item));
     }
