@@ -2,6 +2,7 @@ package com.mkgmod;
 
 import com.mkgmod.item.ModItems;
 import com.mkgmod.registery.ModBlockItems;
+import com.mkgmod.registery.ModBlocks;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
@@ -26,6 +27,7 @@ public class MKGModCreativeTabs {
                     .displayItems((parameters, output) -> {
                         // 这里依然保留你的方块，因为这是要把方块“放进”这个物品栏
                         output.accept(ModBlockItems.TEST_BLOCK_ITEM.get());
+                        output.accept(ModBlockItems.TEST_BLOCK2_ITEM.get());
                         output.accept(ModItems.TEST_FOOD.get());
                     })
                     .build());

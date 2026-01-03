@@ -1,13 +1,18 @@
 package com.mkgmod.registery;
 
 import com.mkgmod.MKGMOD;
+import com.mkgmod.block.TestBlock2;
 import com.mkgmod.item.ModItems;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.MapColor;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredBlock;
+import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
+
+import static com.mkgmod.registery.ModBlockItems.ITEMS;
 
 
 public class ModBlocks {
@@ -21,6 +26,11 @@ public class ModBlocks {
                     .strength(2.0f, 3.0f)
                     .requiresCorrectToolForDrops()
             ));
+
+    public static final DeferredBlock<TestBlock2> TEST_BLOCK2 =
+            BLOCKS.registerBlock("test_block2",
+                    TestBlock2::new,
+                    BlockBehaviour.Properties.of().strength(3.0f).requiresCorrectToolForDrops());
 
     // 注册方法
     public static void register(IEventBus eventBus) {
