@@ -1,6 +1,6 @@
 package com.mkgmod.worldgen;
 
-import com.mkgmod.registery.ModBiomes;
+import com.mkgmod.registry.ModBiomes;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
@@ -19,19 +19,23 @@ public class MKGRegion extends Region {
         super(name, RegionType.OVERWORLD, weight);
     }
 
-
     @Override
     public void addBiomes(Registry<Biome> registry, Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> mapper) {
         this.addModifiedVanillaOverworldBiomes(mapper, builder -> {
-            // 示例：在原本生成“沙漠”的地方，有概率生成你的“塔图因平原”
-            // ParameterPoint.of 的参数依次是：温度, 湿度, 大陆性, 侵蚀度, 深度, 奇点
-            // 这里我们简单替换沙漠的气候带
-            builder.replaceBiome(Biomes.DESERT, ModBiomes.TATOOINE_PLAINS);
-            builder.replaceBiome(Biomes.PLAINS, ModBiomes.TATOOINE_PLAINS);
-            builder.replaceBiome(Biomes.FOREST, ModBiomes.TATOOINE_PLAINS);
-            builder.replaceBiome(Biomes.SAVANNA, ModBiomes.TATOOINE_PLAINS);
-            builder.replaceBiome(Biomes.SNOWY_PLAINS, ModBiomes.TATOOINE_PLAINS);
-            builder.replaceBiome(Biomes.JUNGLE, ModBiomes.TATOOINE_PLAINS);
+            // 设置一个非常基础的参数：中等温度、中等湿度、中等大陆性
+            builder.replaceBiome(Climate.parameters(
+                            Climate.Parameter.span(-0.2F, 0.5F), // 温度：稍微放宽以适应更多区域
+                            Climate.Parameter.span(0.0F, 0.5F),  // 湿度：樱花通常需要湿润环境
+                            Climate.Parameter.span(0.6F, 1.0F),  // 大陆性：设置为极高，代表内陆高原/巨型山脉
+                            Climate.Parameter.span(-0.2F, 0.1F), // 侵蚀度：较低但避开极端的负值，形成巨大但不过于尖锐的起伏
+                            Climate.Parameter.point(0.0F),       // 深度
+                            Climate.Parameter.span(0.0F, 0.3F),  // 奇特度
+                            0.0F),
+                    ModBiomes.HIGH_SAKURA_PEAKS
+            );
         });
     }
+
+
+
 }

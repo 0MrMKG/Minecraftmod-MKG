@@ -1,8 +1,7 @@
 package com.mkgmod;
 
 import com.mkgmod.item.ModItems;
-import com.mkgmod.registery.ModBlockItems;
-import com.mkgmod.registery.ModBlocks;
+import com.mkgmod.registry.ModBlockItems;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
@@ -11,8 +10,6 @@ import net.minecraft.world.item.Items;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
-
-import static com.mkgmod.registery.ModBlockItems.TEST_BLOCK_ITEM;
 
 public class MKGModCreativeTabs {
 

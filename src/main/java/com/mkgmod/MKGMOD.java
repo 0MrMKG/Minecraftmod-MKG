@@ -2,8 +2,8 @@ package com.mkgmod;
 
 import com.mkgmod.init.ModBlockEntities;
 import com.mkgmod.item.ModItems;
-import com.mkgmod.registery.ModBlockItems;
-import com.mkgmod.registery.ModBlocks;
+import com.mkgmod.registry.ModBlockItems;
+import com.mkgmod.registry.ModBlocks;
 import com.mkgmod.worldgen.MKGRegion;
 import net.minecraft.resources.ResourceLocation;
 import org.slf4j.Logger;
@@ -11,18 +11,8 @@ import org.slf4j.Logger;
 import com.mojang.logging.LogUtils;
 
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.network.chat.Component;
-import net.minecraft.world.food.FoodProperties;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.material.MapColor;
-import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.Mod;
@@ -32,14 +22,10 @@ import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
-import net.neoforged.neoforge.registries.DeferredBlock;
-import net.neoforged.neoforge.registries.DeferredHolder;
-import net.neoforged.neoforge.registries.DeferredItem;
-import net.neoforged.neoforge.registries.DeferredRegister;
 import terrablender.api.Regions;
 
-import static com.mkgmod.registery.ModBlockItems.TEST_BLOCK2_ITEM;
-import static com.mkgmod.registery.ModBlockItems.TEST_BLOCK_ITEM;
+import static com.mkgmod.registry.ModBlockItems.TEST_BLOCK2_ITEM;
+import static com.mkgmod.registry.ModBlockItems.TEST_BLOCK_ITEM;
 
 // The value here should match an entry in the META-INF/neoforge.mods.toml file
 @Mod(MKGMOD.MODID)
@@ -81,10 +67,8 @@ public class MKGMOD {
         LOGGER.info("{}{}", Config.MAGIC_NUMBER_INTRODUCTION.get(), Config.MAGIC_NUMBER.getAsInt());
 
         event.enqueueWork(() -> {
-            // 注册你的自定义区域
-            // 参数 1: 区域 ID
-            // 参数 2: 权重。权重高则你的生物群系更常见
-            Regions.register(new MKGRegion(ResourceLocation.fromNamespaceAndPath("mkgmod", "overworld_region"), 100));
+            terrablender.api.Regions.register(new MKGRegion(
+                    ResourceLocation.fromNamespaceAndPath(MODID, "overworld_region"), 100));
         });
 
         Config.ITEM_STRINGS.get().forEach((item) -> LOGGER.info("ITEM >> {}", item));

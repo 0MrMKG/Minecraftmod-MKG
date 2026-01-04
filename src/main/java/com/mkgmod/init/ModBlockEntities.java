@@ -1,18 +1,11 @@
 package com.mkgmod.init;
 
-import com.mkgmod.MKGMOD;
-import com.mkgmod.block.TestBlock2;
 import com.mkgmod.blockentity.TestBlock2Entity;
-import com.mkgmod.registery.ModBlocks;
+import com.mkgmod.registry.ModBlocks;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.material.MapColor;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
-
-import static com.mkgmod.registery.ModBlocks.BLOCKS;
 
 public class ModBlockEntities {
     // 创建延迟注册器

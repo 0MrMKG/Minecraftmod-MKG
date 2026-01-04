@@ -17,8 +17,21 @@ repositories {
     }
 }
 
+repositories {
+    maven {
+        name = "Modrinth"
+        url = "https://api.modrinth.com/maven"
+        content {
+            includeGroup "maven.modrinth"
+        }
+    }
+}
+
+
 dependencies {
     implementation "com.github.glitchfiend:TerraBlender-neoforge:1.21.1-4.1.0.8"
+    implementation "maven.modrinth:iris:1.8.12+1.21.1-neoforge"
+    implementation "maven.modrinth:sodium:mc1.21.1-0.6.13-neoforge"
 }
 
 //compileOnly "com.github.glitchfiend:TerraBlender-neoforge:${minecraft_version}-${terrablender_version}"

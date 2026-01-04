@@ -12,7 +12,7 @@ import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 
 // This class will not load on dedicated servers. Accessing client side code from here is safe.
 @Mod(value = MKGMOD.MODID, dist = Dist.CLIENT)
-// You can use EventBusSubscriber to automatically registery all static methods in the class annotated with @SubscribeEvent
+// You can use EventBusSubscriber to automatically registry all static methods in the class annotated with @SubscribeEvent
 @EventBusSubscriber(modid = MKGMOD.MODID, value = Dist.CLIENT)
 public class MKGMODClient {
     public MKGMODClient(ModContainer container) {

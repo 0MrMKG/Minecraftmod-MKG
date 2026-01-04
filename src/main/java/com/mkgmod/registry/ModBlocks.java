@@ -1,18 +1,13 @@
-package com.mkgmod.registery;
+package com.mkgmod.registry;
 
 import com.mkgmod.MKGMOD;
 import com.mkgmod.block.TestBlock2;
-import com.mkgmod.item.ModItems;
-import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.MapColor;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredBlock;
-import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
-
-import static com.mkgmod.registery.ModBlockItems.ITEMS;
 
 
 public class ModBlocks {

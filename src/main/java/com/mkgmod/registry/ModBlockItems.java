@@ -1,10 +1,7 @@
-package com.mkgmod.registery;
+package com.mkgmod.registry;
 
-import com.mkgmod.MKGMOD;
 import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.Item;
 import net.neoforged.bus.api.IEventBus;
-import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
