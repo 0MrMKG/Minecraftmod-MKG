@@ -37,6 +37,13 @@ public class VoyagerCompassScreen extends Screen {
             PacketDistributor.sendToServer(new TeleportPayload("minecraft:the_end"));
             this.onClose();
         }).bounds(centerX, startY + spacing * 2, buttonWidth, buttonHeight).build());
+
+        // 在 init() 方法中添加
+        this.addRenderableWidget(Button.builder(Component.literal("前往樱花星球"), (button) -> {
+            // 发送你的自定义维度 ID
+            PacketDistributor.sendToServer(new TeleportPayload("mkgmod:sakura_dimension"));
+            this.onClose();
+        }).bounds(centerX, startY + spacing * 3, buttonWidth, buttonHeight).build());
     }
 
     @Override
