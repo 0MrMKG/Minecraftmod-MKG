@@ -2,5 +2,6 @@
   "item.mkgmod.test_food": "测试用-不明食物",
   "block.mkgmod.test_block" : "测试用-不明方块",
   "block.mkgmod.test_block2" : "测试用-方块实体",
-  "creativetab.mkgmod.mkg_tab": "MKG 模组物品栏"
+  "creativetab.mkgmod.mkg_tab": "MKG 模组物品栏",
+  "item.mkgmod.voyager_compass": "旅行者罗盘"
 }

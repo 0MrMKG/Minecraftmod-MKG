@@ -26,6 +26,7 @@ public class MKGModCreativeTabs {
                         output.accept(ModBlockItems.TEST_BLOCK_ITEM.get());
                         output.accept(ModBlockItems.TEST_BLOCK2_ITEM.get());
                         output.accept(ModItems.TEST_FOOD.get());
+                        output.accept(ModItems.VOYAGER_COMPASS.get());
                     })
                     .build());
 

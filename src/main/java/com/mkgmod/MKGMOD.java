@@ -2,10 +2,15 @@ package com.mkgmod;
 
 import com.mkgmod.init.ModBlockEntities;
 import com.mkgmod.item.ModItems;
+import com.mkgmod.network.PayloadHandler;
+import com.mkgmod.network.TeleportPayload;
 import com.mkgmod.registry.ModBlockItems;
 import com.mkgmod.registry.ModBlocks;
 import com.mkgmod.worldgen.MKGRegion;
 import net.minecraft.resources.ResourceLocation;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
+import net.neoforged.neoforge.network.registration.PayloadRegistrar;
 import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;
@@ -39,6 +44,7 @@ public class MKGMOD {
     public MKGMOD(IEventBus modEventBus, ModContainer modContainer) {
         // Register the commonSetup method for modloading
         modEventBus.addListener(this::commonSetup);
+        modEventBus.addListener(this::registerNetworking);
         //=========================================
         //Blocks
         ModBlocks.register(modEventBus);
@@ -56,6 +62,18 @@ public class MKGMOD {
         modEventBus.addListener(this::addCreative);
         // Register our mod's ModConfigSpec so that FML can create and load the config file for us
         modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
+    }
+
+    private void registerNetworking(final RegisterPayloadHandlersEvent event) {
+        // "1" 是协议版本号，如果以后更新了包结构，可以改掉它
+        final PayloadRegistrar registrar = event.registrar("1");
+
+        // 注册从 客户端 发送到 服务器 的数据包
+        registrar.playToServer(
+                TeleportPayload.TYPE,
+                TeleportPayload.STREAM_CODEC,
+                PayloadHandler::handleTeleport
+        );
     }
 
     private void commonSetup(FMLCommonSetupEvent event) {
@@ -91,3 +109,5 @@ public class MKGMOD {
         LOGGER.info("HELLO from server starting");
     }
 }
+
+
