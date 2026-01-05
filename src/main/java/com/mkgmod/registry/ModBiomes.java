@@ -13,5 +13,9 @@ public class ModBiomes {
             ResourceLocation.fromNamespaceAndPath(MKGMOD.MODID, "high_sakura_peaks")
     );
 
+    public static final ResourceKey<Biome> SAKURA_PLAIN = ResourceKey.create(
+            Registries.BIOME,
+            ResourceLocation.fromNamespaceAndPath(MKGMOD.MODID, "sakura_plain")
+    );
 
 }
