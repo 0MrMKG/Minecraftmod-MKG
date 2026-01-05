@@ -9,7 +9,7 @@ import net.neoforged.neoforge.network.PacketDistributor;
 
 public class VoyagerCompassScreen extends Screen {
     public VoyagerCompassScreen() {
-        super(Component.literal("时空罗盘"));
+        super(Component.literal("旅行者罗盘"));
     }
 
     @Override
@@ -27,7 +27,7 @@ public class VoyagerCompassScreen extends Screen {
         }).bounds(centerX, startY, buttonWidth, buttonHeight).build());
 
         // 按钮 2：传送到下界
-        this.addRenderableWidget(Button.builder(Component.literal("前往下界"), (button) -> {
+        this.addRenderableWidget(Button.builder(Component.literal("前往地狱"), (button) -> {
             PacketDistributor.sendToServer(new TeleportPayload("minecraft:the_nether"));
             this.onClose();
         }).bounds(centerX, startY + spacing, buttonWidth, buttonHeight).build());
@@ -38,7 +38,7 @@ public class VoyagerCompassScreen extends Screen {
             this.onClose();
         }).bounds(centerX, startY + spacing * 2, buttonWidth, buttonHeight).build());
 
-        // 在 init() 方法中添加
+        // 按钮 4：传送到樱花星球
         this.addRenderableWidget(Button.builder(Component.literal("前往樱花星球"), (button) -> {
             // 发送你的自定义维度 ID
             PacketDistributor.sendToServer(new TeleportPayload("mkgmod:sakura_dimension"));
