@@ -1,6 +1,7 @@
 package com.mkgmod.registry;
 
 import com.mkgmod.MKGMOD;
+import com.mkgmod.block.SpaceshipOperatorBlock;
 import com.mkgmod.block.TestBlock2;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -26,6 +27,12 @@ public class ModBlocks {
             BLOCKS.registerBlock("test_block2",
                     TestBlock2::new,
                     BlockBehaviour.Properties.of().strength(3.0f).requiresCorrectToolForDrops());
+
+    public static final DeferredBlock<SpaceshipOperatorBlock> SPACESHIP_OPERATOR_Block =
+            BLOCKS.registerBlock("spaceship_operator_block",
+                    SpaceshipOperatorBlock::new,
+                    BlockBehaviour.Properties.of().strength(3.0f).requiresCorrectToolForDrops());
+
 
     // 注册方法
     public static void register(IEventBus eventBus) {

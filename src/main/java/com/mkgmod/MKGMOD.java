@@ -2,13 +2,14 @@ package com.mkgmod;
 
 import com.mkgmod.init.ModBlockEntities;
 import com.mkgmod.item.ModItems;
-import com.mkgmod.network.PayloadHandler;
+import com.mkgmod.network.SpaceshipActionPayload;
+import com.mkgmod.network.SpaceshipPacketHandler;
+import com.mkgmod.network.TeleportPayloadHandler;
 import com.mkgmod.network.TeleportPayload;
 import com.mkgmod.registry.ModBlockItems;
 import com.mkgmod.registry.ModBlocks;
 import com.mkgmod.worldgen.MKGRegion;
 import net.minecraft.resources.ResourceLocation;
-import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.neoforged.neoforge.network.registration.PayloadRegistrar;
 import org.slf4j.Logger;
@@ -27,7 +28,6 @@ import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
-import terrablender.api.Regions;
 
 import static com.mkgmod.registry.ModBlockItems.TEST_BLOCK2_ITEM;
 import static com.mkgmod.registry.ModBlockItems.TEST_BLOCK_ITEM;
@@ -72,8 +72,17 @@ public class MKGMOD {
         registrar.playToServer(
                 TeleportPayload.TYPE,
                 TeleportPayload.STREAM_CODEC,
-                PayloadHandler::handleTeleport
+                TeleportPayloadHandler::handleTeleport
         );
+
+        //-------------
+        // 2. 注册飞船动作包（必须添加这一段，否则会报错）
+        registrar.playToServer(
+                SpaceshipActionPayload.TYPE,
+                SpaceshipActionPayload.CODEC,
+                SpaceshipPacketHandler::handleData
+        );
+        //-------------
     }
 
     private void commonSetup(FMLCommonSetupEvent event) {

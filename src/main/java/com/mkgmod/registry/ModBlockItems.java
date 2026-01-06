@@ -11,6 +11,8 @@ public class ModBlockItems {
 
     public static final DeferredItem<BlockItem> TEST_BLOCK_ITEM = ITEMS.registerSimpleBlockItem(ModBlocks.TEST_BLOCK);
     public static final DeferredItem<BlockItem> TEST_BLOCK2_ITEM = ITEMS.registerSimpleBlockItem(ModBlocks.TEST_BLOCK2);
+    public static final DeferredItem<BlockItem> SPACESHIP_OPERATOR_Block_ITEM = ITEMS.registerSimpleBlockItem(ModBlocks.SPACESHIP_OPERATOR_Block);
+
 
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);

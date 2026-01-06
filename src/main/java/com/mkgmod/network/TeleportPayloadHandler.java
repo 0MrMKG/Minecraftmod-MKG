@@ -12,7 +12,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 
-public class PayloadHandler {
+public class TeleportPayloadHandler {
 
     public static void handleTeleport(final TeleportPayload payload, final IPayloadContext context) {
         context.enqueueWork(() -> {

@@ -25,8 +25,10 @@ public class MKGModCreativeTabs {
                         // 这里依然保留你的方块，因为这是要把方块“放进”这个物品栏
                         output.accept(ModBlockItems.TEST_BLOCK_ITEM.get());
                         output.accept(ModBlockItems.TEST_BLOCK2_ITEM.get());
+                        output.accept(ModBlockItems.SPACESHIP_OPERATOR_Block_ITEM.get());
                         output.accept(ModItems.TEST_FOOD.get());
                         output.accept(ModItems.VOYAGER_COMPASS.get());
+
                     })
                     .build());
 

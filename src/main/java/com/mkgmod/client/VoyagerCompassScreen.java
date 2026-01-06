@@ -44,6 +44,17 @@ public class VoyagerCompassScreen extends Screen {
             PacketDistributor.sendToServer(new TeleportPayload("mkgmod:sakura_dimension"));
             this.onClose();
         }).bounds(centerX, startY + spacing * 3, buttonWidth, buttonHeight).build());
+
+        //-------------
+        // 按钮 5：创建新星球
+        this.addRenderableWidget(Button.builder(Component.literal("创建新星球"), (button) -> {
+            // 这里发送用于创建世界的自定义 Payload
+            PacketDistributor.sendToServer(new TeleportPayload("action:create_world"));
+            this.onClose();
+        }).bounds(centerX, startY + spacing * 4, buttonWidth, buttonHeight).build());
+        //-------------
+
+
     }
 
     @Override
@@ -53,5 +64,12 @@ public class VoyagerCompassScreen extends Screen {
         super.render(guiGraphics, mouseX, mouseY, partialTick);
         // 绘制标题
         guiGraphics.drawCenteredString(this.font, this.title, this.width / 2, 20, 0xFFFFFF);
+
+        //-------------
+        // 显示已创建星球的总数（这里需要对接你后端保存的世界数量变量，此处以示例数字表示）
+        int worldCount = 0; // 替换为获取实际数量的代码，例如：ModData.getWorldCount()
+        guiGraphics.drawString(this.font, "已发现星球总数: " + worldCount, 10, this.height - 20, 0xAAAAAA);
+        //-------------
+
     }
 }

@@ -29,9 +29,19 @@ repositories {
 
 
 dependencies {
+    implementation "maven.modrinth:tectonic:3.0.19-neoforge"
+    implementation "maven.modrinth:lithostitched:1.5.7-neoforge-1.21.1"
+
     implementation "com.github.glitchfiend:TerraBlender-neoforge:1.21.1-4.1.0.8"
     implementation "maven.modrinth:iris:1.8.12+1.21.1-neoforge"
     implementation "maven.modrinth:sodium:mc1.21.1-0.6.13-neoforge"
+// --- 投影模组 (NeoForge 移植版) ---
+    // Forgematica 是 Litematica 在 NeoForge 上的正式对应版本
+    implementation "maven.modrinth:forgematica:0.1.14-mc1.21.1"
+    // 投影的前置库 (NeoForge 版)
+    implementation "maven.modrinth:mafglib:0.2.2-mc1.21.1"
+    implementation "maven.modrinth:badpackets:neo-0.8.2"
+
 }
 
 //compileOnly "com.github.glitchfiend:TerraBlender-neoforge:${minecraft_version}-${terrablender_version}"

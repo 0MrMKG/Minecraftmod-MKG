@@ -16,4 +16,11 @@ public class ModBlockEntities {
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<TestBlock2Entity>> TEST_BLOCK2_ENTITY =
             BLOCK_ENTITIES.register("test_block2_entity",
                     () -> BlockEntityType.Builder.of(TestBlock2Entity::new, ModBlocks.TEST_BLOCK2.get()).build(null));
+
+
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<TestBlock2Entity>> SPACESHIP_OPERATOR_BlockEntity =
+            BLOCK_ENTITIES.register("spaceship_operator_blockentity",
+                    () -> BlockEntityType.Builder.of(TestBlock2Entity::new, ModBlocks.SPACESHIP_OPERATOR_Block.get()).build(null));
+
+
 }
