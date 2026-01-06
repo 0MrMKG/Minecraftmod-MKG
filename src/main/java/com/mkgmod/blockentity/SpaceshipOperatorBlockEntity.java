@@ -24,6 +24,7 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemp
 import java.util.Optional;
 import java.util.Set;
 
+
 public class SpaceshipOperatorBlockEntity extends BlockEntity {
     private CompoundTag savedSpaceshipNbt = null;
     private BlockPos sourcePos; // 记录出发点
@@ -36,7 +37,6 @@ public class SpaceshipOperatorBlockEntity extends BlockEntity {
 // ------------- 逻辑：组装飞船 (识别铁块并保存) -------------
     public void assembleSpaceship(ServerPlayer player) {
         if (this.level == null || this.level.isClientSide) return;
-
         ServerLevel serverLevel = (ServerLevel) this.level;
         StructureTemplateManager manager = serverLevel.getServer().getStructureManager();
         StructureTemplate template = manager.getOrCreate(ResourceLocation.fromNamespaceAndPath("mkgmod", "spaceship_data"));
@@ -44,36 +44,32 @@ public class SpaceshipOperatorBlockEntity extends BlockEntity {
         BlockPos center = this.worldPosition;
         BlockPos start = center.offset(-3, -3, -3);
         Vec3i size = new Vec3i(7, 7, 7);
+        // 填充结构内容
         template.fillFromWorld(serverLevel, start, size, true, null);
+        // ------------- 修复部分 -------------
+        // 1. 将 template 的内容转换为 CompoundTag 并存入变量
         this.savedSpaceshipNbt = template.save(new CompoundTag());
+        // 2. 必须调用 setChanged()，否则 Minecraft 不会触发 saveAdditional，重启后数据会丢失
         this.setChanged();
+
         manager.save(ResourceLocation.fromNamespaceAndPath("mkgmod", "spaceship_data"));
-        player.sendSystemMessage(Component.literal("§a§l完成飞船检测。"));
     }
 
-    // ------------- 逻辑：发射 (恢复 NBT) -------------
-    // --- 工具方法：清除飞船区域 ---
-    private void clearShipArea(Level level, BlockPos center) {
-        // 飞船是 7x7x7，中心偏移是 -3, -3, -3
-        BlockPos start = center.offset(-3, -3, -3);
-        BlockPos end = center.offset(3, 3, 3);
 
-        for (BlockPos pos : BlockPos.betweenClosed(start, end)) {
-            level.setBlock(pos, Blocks.AIR.defaultBlockState(), Block.UPDATE_ALL);
-        }
-    }
-
-    // ------------- 逻辑：发射 (主世界 -> 末地深空) -------------
+    // ------------- 发射 (从主世界 -> 末地深空) -------------
     public void launchSpaceship(ServerPlayer player) {
+
         if (this.savedSpaceshipNbt == null || this.level == null) {
             player.sendSystemMessage(Component.literal("§c错误：飞船尚未完成部件检测！"));
             return;
         }
 
-        // 记录出发数据
+        // 记录当前位置和维度，用于以后返回
         this.sourcePos = this.worldPosition;
         this.sourceLevelKey = this.level.dimension();
         this.setChanged(); // 标记需要保存数据
+
+
 
         ServerLevel endLevel = player.server.getLevel(Level.END);
         // 2. 定义末地坐标 (500,000 坐标点)
@@ -92,21 +88,16 @@ public class SpaceshipOperatorBlockEntity extends BlockEntity {
             BlockPos placePos = targetPos.offset(-3, -3, -3);
             template.placeInWorld(endLevel, placePos, placePos, new StructurePlaceSettings().setIgnoreEntities(false).setFinalizeEntities(true), endLevel.getRandom(), Block.UPDATE_ALL);
 
-            BlockEntity newBE = endLevel.getBlockEntity(targetPos);
-            if (newBE instanceof SpaceshipOperatorBlockEntity spaceshipBE) {
-                spaceshipBE.sourcePos = this.sourcePos;
-                spaceshipBE.sourceLevelKey = this.sourceLevelKey;
-                spaceshipBE.savedSpaceshipNbt = this.savedSpaceshipNbt; // 同步 NBT 状态
-                spaceshipBE.setChanged();
-            }
-
+            // 5. 重要：清除原来世界的飞船 (变成空气)
             clearShipArea(this.level, this.worldPosition);
 
+            // 6. 传送玩家
             player.teleportTo(endLevel, targetPos.getX(), targetPos.getY(), targetPos.getZ(), Set.of(), player.getYRot(), player.getXRot());
 
             player.sendSystemMessage(Component.literal("§b§l超空间引擎已启动。目标：深空。"));
         }
     }
+
 
     // ------------- 逻辑：返回 (末地深空 -> 原来世界的位置) -------------
     public void returnToOverworld(ServerPlayer player) {
@@ -134,43 +125,38 @@ public class SpaceshipOperatorBlockEntity extends BlockEntity {
     }
     // -------------
 
-    //-------------
-    //暂时废弃
-    //定义太空维度的 Key (对应 space_void_type.json)
+
+
+
+    //[暂时废弃]   定义太空维度的 Key (对应 space_void_type.json)
 //    public static final ResourceKey<Level> SPACE_VOID = ResourceKey.create(
 //            Registries.DIMENSION,
 //            ResourceLocation.fromNamespaceAndPath("mkgmod", "space_void")
 //    );
+
+
+
+
     //-------------
+    private void clearShipArea(Level level, BlockPos center) {
+        BlockPos start = center.offset(-3, -3, -3);
+        BlockPos end = center.offset(3, 3, 3);
+
+        for (BlockPos pos : BlockPos.betweenClosed(start, end)) {
+            level.setBlock(pos, Blocks.AIR.defaultBlockState(), Block.UPDATE_ALL);
+        }
+    }
+
 
     @Override
     protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
         super.saveAdditional(tag, registries);
         if (savedSpaceshipNbt != null) tag.put("spaceship_data", savedSpaceshipNbt);
-
-        // 保存返航坐标
-        if (sourcePos != null) {
-            tag.putLong("source_pos", sourcePos.asLong());
-        }
-        // 保存维度信息
-        if (sourceLevelKey != null) {
-            tag.putString("source_dimension", sourceLevelKey.location().toString());
-        }
     }
 
     @Override
     protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
         super.loadAdditional(tag, registries);
         if (tag.contains("spaceship_data")) this.savedSpaceshipNbt = tag.getCompound("spaceship_data");
-
-        // 读取返航坐标
-        if (tag.contains("source_pos")) {
-            this.sourcePos = BlockPos.of(tag.getLong("source_pos"));
-        }
-        // 读取维度信息
-        if (tag.contains("source_dimension")) {
-            this.sourceLevelKey = ResourceKey.create(Registries.DIMENSION,
-                    ResourceLocation.parse(tag.getString("source_dimension")));
-        }
     }
 }
