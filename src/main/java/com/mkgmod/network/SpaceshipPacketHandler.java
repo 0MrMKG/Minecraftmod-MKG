@@ -21,6 +21,8 @@ public class SpaceshipPacketHandler {
                 } else if ("launch".equals(data.action())) {
                     // 调用发射逻辑 (之后会用到)
                     spaceshipBE.launchSpaceship(player);
+                } else if ("return".equals(data.action())) {
+                    spaceshipBE.returnToOverworld(player);
                 }
             }
         });

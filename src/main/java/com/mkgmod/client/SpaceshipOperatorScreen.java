@@ -21,18 +21,23 @@ public class SpaceshipOperatorScreen extends Screen {
         int centerX = this.width / 2 - 50;
 
         // ------------- 按钮 1：组装飞船 -------------
-        this.addRenderableWidget(Button.builder(Component.literal("组装飞船"), (button) -> {
+        this.addRenderableWidget(Button.builder(Component.literal("飞船部件检测"), (button) -> {
             PacketDistributor.sendToServer(new SpaceshipActionPayload(blockPos, "assemble"));
             this.onClose();
         }).bounds(centerX, 60, 100, 20).build());
-        // -------------
 
-        // ------------- 按钮 2：发射 -------------
+        // ------------- 按钮 2：发射飞船 (前往末地) -------------
         this.addRenderableWidget(Button.builder(Component.literal("发射飞船"), (button) -> {
             PacketDistributor.sendToServer(new SpaceshipActionPayload(blockPos, "launch"));
             this.onClose();
         }).bounds(centerX, 90, 100, 20).build());
-        // -------------
+
+        // ------------- 按钮 3：返回主世界 (新增) -------------
+        // 将 Y 坐标设为 120，保持间距一致
+        this.addRenderableWidget(Button.builder(Component.literal("返回主世界"), (button) -> {
+            PacketDistributor.sendToServer(new SpaceshipActionPayload(blockPos, "return"));
+            this.onClose();
+        }).bounds(centerX, 120, 100, 20).build());
     }
 
     @Override
