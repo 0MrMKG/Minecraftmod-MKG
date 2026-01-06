@@ -17,7 +17,7 @@ public class SpaceshipPacketHandler {
             if (level.getBlockEntity(data.pos()) instanceof SpaceshipOperatorBlockEntity spaceshipBE) {
                 if ("assemble".equals(data.action())) {
                     // 调用保存 NBT 的逻辑
-                    spaceshipBE.assembleSpaceship();
+                    spaceshipBE.assembleSpaceship(player);
                 } else if ("launch".equals(data.action())) {
                     // 调用发射逻辑 (之后会用到)
                     spaceshipBE.launchSpaceship(player);
