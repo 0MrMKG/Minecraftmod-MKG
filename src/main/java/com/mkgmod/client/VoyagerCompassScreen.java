@@ -158,7 +158,7 @@ public class VoyagerCompassScreen extends Screen {
 
         // 4. 应用空间变换
         // 将变换中心设定在屏幕中心
-        pose.translate(centerX, centerY, 500); // Z轴 100 产生悬浮感
+        pose.translate(centerX, centerY, 50); // Z轴 100 产生悬浮感
 
         // 使用四元数或 Axis 进行 3D 旋转
         // 增加 tiltStrength 使得边缘有明显的厚度感和透视感
