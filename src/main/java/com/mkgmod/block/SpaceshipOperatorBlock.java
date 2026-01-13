@@ -1,7 +1,5 @@
 package com.mkgmod.block;
 
-
-
 import com.mkgmod.blockentity.SpaceshipOperatorBlockEntity;
 import com.mkgmod.blockentity.TestBlock2Entity;
 import com.mkgmod.client.SpaceshipOperatorScreen;

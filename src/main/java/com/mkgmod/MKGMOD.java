@@ -1,5 +1,6 @@
 package com.mkgmod;
 
+import com.mkgmod.blockentity.SpaceshipOperatorBlockEntity;
 import com.mkgmod.init.ModBlockEntities;
 import com.mkgmod.item.ModItems;
 import com.mkgmod.network.SpaceshipActionPayload;
@@ -55,6 +56,9 @@ public class MKGMOD {
         ModItems.ITEMS.register(modEventBus);
         //CreativeTabs
         MKGModCreativeTabs.register(modEventBus);
+        //OTHER
+        SpaceshipOperatorBlockEntity.ATTACHMENT_TYPES.register(modEventBus);
+
         //=========================================
         NeoForge.EVENT_BUS.register(this);
 
