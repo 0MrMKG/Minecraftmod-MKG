@@ -162,7 +162,7 @@ public class VoyagerCompassScreen extends Screen {
 
         // 使用四元数或 Axis 进行 3D 旋转
         // 增加 tiltStrength 使得边缘有明显的厚度感和透视感
-        float tiltStrength = 12.0f;
+        float tiltStrength = 30.0f;
         pose.mulPose(com.mojang.math.Axis.YP.rotationDegrees(offX * tiltStrength));
         pose.mulPose(com.mojang.math.Axis.XP.rotationDegrees(-offY * tiltStrength));
 
