@@ -31,8 +31,8 @@ repositories {
 dependencies {
     implementation "maven.modrinth:tectonic:3.0.19-neoforge"
     implementation "maven.modrinth:lithostitched:1.5.7-neoforge-1.21.1"
-
     implementation "com.github.glitchfiend:TerraBlender-neoforge:1.21.1-4.1.0.8"
+
     implementation "maven.modrinth:iris:1.8.12+1.21.1-neoforge"
     implementation "maven.modrinth:sodium:mc1.21.1-0.6.13-neoforge"
 // --- 投影模组 (NeoForge 移植版) ---
