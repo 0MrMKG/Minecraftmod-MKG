@@ -28,7 +28,7 @@ public class MKGModCreativeTabs {
                         output.accept(ModBlockItems.SPACESHIP_OPERATOR_Block_ITEM.get());
                         output.accept(ModItems.TEST_FOOD.get());
                         output.accept(ModItems.VOYAGER_COMPASS.get());
-
+                        output.accept(ModItems.CREDIT_COLLECTOR.get());
                     })
                     .build());
 

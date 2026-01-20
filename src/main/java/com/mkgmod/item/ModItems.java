@@ -2,6 +2,7 @@ package com.mkgmod.item;
 
 
 import com.mkgmod.item.food.ModFoods;
+import com.mkgmod.item.tool.CreditCollector;
 import com.mkgmod.item.tool.VoyagerCompassItem;
 import net.minecraft.world.item.Item;
 import net.neoforged.neoforge.registries.DeferredItem;
@@ -16,4 +17,8 @@ public class ModItems {
 
     public static final DeferredItem<VoyagerCompassItem> VOYAGER_COMPASS = ITEMS.register("voyager_compass",
             () -> new VoyagerCompassItem(new Item.Properties().stacksTo(1)));
+
+    public static final DeferredItem<Item> CREDIT_COLLECTOR = ITEMS.register("credit_collector",
+            () -> new CreditCollector(new Item.Properties()));
+
 }

@@ -153,7 +153,6 @@ public class VoyagerCompassScreen extends Screen {
         // 将鼠标坐标映射到 -1.0 到 1.0
         float offX = (mouseX - centerX) / centerX;
         float offY = (mouseY - centerY) / centerY;
-
         pose.pushPose();
 
         // 4. 应用空间变换
