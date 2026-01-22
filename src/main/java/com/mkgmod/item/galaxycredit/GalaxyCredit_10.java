@@ -1,6 +1,13 @@
 package com.mkgmod.item.galaxycredit;
 
-public class GalaxyCredit_10 {
+import net.minecraft.world.item.Item;
+
+public class GalaxyCredit_10 extends Item {
+    public GalaxyCredit_10(Properties properties) {
+        super(properties);
+    }
+
+
 
 
 
