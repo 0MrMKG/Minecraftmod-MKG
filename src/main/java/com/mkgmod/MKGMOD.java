@@ -7,10 +7,13 @@ import com.mkgmod.network.SpaceshipActionPayload;
 import com.mkgmod.network.SpaceshipPacketHandler;
 import com.mkgmod.network.TeleportPayloadHandler;
 import com.mkgmod.network.TeleportPayload;
+import com.mkgmod.registry.ModAttachments;
 import com.mkgmod.registry.ModBlockItems;
 import com.mkgmod.registry.ModBlocks;
+import com.mkgmod.registry.ModCommands;
 import com.mkgmod.worldgen.MKGRegion;
 import net.minecraft.resources.ResourceLocation;
+import net.neoforged.neoforge.event.RegisterCommandsEvent;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.neoforged.neoforge.network.registration.PayloadRegistrar;
 import org.slf4j.Logger;
@@ -62,6 +65,9 @@ public class MKGMOD {
         //=========================================
         NeoForge.EVENT_BUS.register(this);
 
+        // 【核心操作】将附件注册表挂载到总线上
+        ModAttachments.ATTACHMENT_TYPES.register(modEventBus);
+
         // Register the item to a creative tab
         modEventBus.addListener(this::addCreative);
         // Register our mod's ModConfigSpec so that FML can create and load the config file for us
@@ -88,6 +94,14 @@ public class MKGMOD {
         );
         //-------------
     }
+
+    @SubscribeEvent
+    public void onCommandsRegister(RegisterCommandsEvent event) {
+        // 在这里调用你写的 register 方法
+        ModCommands.register(event.getDispatcher());
+
+    }
+
 
     private void commonSetup(FMLCommonSetupEvent event) {
         // Some common setup code

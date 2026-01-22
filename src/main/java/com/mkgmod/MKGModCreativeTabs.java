@@ -29,6 +29,11 @@ public class MKGModCreativeTabs {
                         output.accept(ModItems.TEST_FOOD.get());
                         output.accept(ModItems.VOYAGER_COMPASS.get());
                         output.accept(ModItems.CREDIT_COLLECTOR.get());
+                        output.accept(ModItems.GALAXY_CREDIT_1.get());
+                        output.accept(ModItems.GALAXY_CREDIT_10.get());
+                        output.accept(ModItems.GALAXY_CREDIT_100.get());
+                        output.accept(ModItems.GALAXY_CREDIT_1000.get());
+                        output.accept(ModItems.GALAXY_CREDIT_10000.get());
                     })
                     .build());
 

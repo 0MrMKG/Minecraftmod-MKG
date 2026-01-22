@@ -21,4 +21,20 @@ public class ModItems {
     public static final DeferredItem<Item> CREDIT_COLLECTOR = ITEMS.register("credit_collector",
             () -> new CreditCollector(new Item.Properties()));
 
+    // 银河信用点面值注册
+    public static final DeferredItem<Item> GALAXY_CREDIT_1 = ITEMS.register("galaxy_credit_1",
+            () -> new Item(new Item.Properties()));
+
+    public static final DeferredItem<Item> GALAXY_CREDIT_10 = ITEMS.register("galaxy_credit_10",
+            () -> new Item(new Item.Properties()));
+
+    public static final DeferredItem<Item> GALAXY_CREDIT_100 = ITEMS.register("galaxy_credit_100",
+            () -> new Item(new Item.Properties()));
+
+    public static final DeferredItem<Item> GALAXY_CREDIT_1000 = ITEMS.register("galaxy_credit_1000",
+            () -> new Item(new Item.Properties()));
+
+    public static final DeferredItem<Item> GALAXY_CREDIT_10000 = ITEMS.register("galaxy_credit_10000",
+            () -> new Item(new Item.Properties()));
+
 }
