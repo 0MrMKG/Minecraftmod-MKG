@@ -23,10 +23,13 @@ public class ModItems {
             () -> new VoyagerCompassItem(new Item.Properties().stacksTo(1)));
 
 
-
     /*
     *   货币相关item
     * */
+
+    // 0面值信用点白板
+    public static final DeferredItem<GalaxyCredit_1> GALAXY_CREDIT_0 = ITEMS.register("galaxy_credit_0",
+            () -> new GalaxyCredit_1(new Item.Properties()));
     // 1面值信用点
     public static final DeferredItem<GalaxyCredit_1> GALAXY_CREDIT_1 = ITEMS.register("galaxy_credit_1",
             () -> new GalaxyCredit_1(new Item.Properties()));

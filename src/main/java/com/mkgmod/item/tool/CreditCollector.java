@@ -1,6 +1,5 @@
 package com.mkgmod.item.tool;
 
-
 import com.mkgmod.item.ModItems;
 import com.mkgmod.registry.ModAttachments;
 import net.minecraft.network.chat.Component;
@@ -36,7 +35,7 @@ public class CreditCollector extends Item {
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
         if (!level.isClientSide) {
             long totalFound = 0;
-
+            int creditAmount = 0;
             // 1. 遍历玩家背包（包括快捷栏和主背包）
             for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
                 ItemStack stack = player.getInventory().getItem(i);
@@ -47,6 +46,7 @@ public class CreditCollector extends Item {
                     int valuePerItem = CREDIT_VALUES.get(item);
                     int count = stack.getCount();
 
+                    creditAmount += count;
                     totalFound += (long) valuePerItem * count;
 
                     // 3. 消耗背包里的道具
@@ -57,9 +57,22 @@ public class CreditCollector extends Item {
             if (totalFound > 0) {
                 // 4. 将金额存入玩家数据 (假设你使用了 Attachment)
                 player.getData(ModAttachments.PLAYER_CREDITS).addCredits((int)totalFound);
-
                 player.sendSystemMessage(Component.literal("§6[星际终端] §a做的好，信用点+§e" + totalFound));
                 player.sendSystemMessage(Component.literal("§6[星际终端] §f当前总账户余额已更新。"));
+
+                // --------credit0返还的逻辑---------
+                // 2. 创建物品堆栈 (ItemStack)
+                // 这里将 totalFound 强制转换为 int 作为数量。
+                // 如果数量超过 64，NeoForge 的 addItem 会自动帮你拆分成多组发放。
+                ItemStack creditStack = new ItemStack(ModItems.GALAXY_CREDIT_0.get(), creditAmount);
+                // 3. 安全地将物品放入玩家背包
+                boolean added = player.getInventory().add(creditStack);
+                // 4. 如果背包满了，剩下的部分掉落在地上（防止刷掉物品）
+                if (!creditStack.isEmpty()) {
+                    player.drop(creditStack, false);
+                }
+
+
             } else {
                 player.sendSystemMessage(Component.literal("§c[星际终端] 未在背包中检测到可识别的信用点数据"));
             }
