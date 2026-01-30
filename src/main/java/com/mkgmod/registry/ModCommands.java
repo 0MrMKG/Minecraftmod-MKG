@@ -11,13 +11,20 @@ public class ModCommands {
         dispatcher.register(Commands.literal("credits")
                 .requires(source -> {
                     try {
-                        // 获取玩家对象并检查是否为创造模式
                         return source.getPlayerOrException().isCreative();
                     } catch (Exception e) {
-                        // 如果是控制台执行，通常允许或根据需求决定（这里返回 false 表示仅限创造玩家）
                         return false;
                     }
                 })
+                // --- 查询余额 ---
+                .then(Commands.literal("query")
+                        .executes(context -> {
+                            var player = context.getSource().getPlayerOrException();
+                            int current = player.getData(ModAttachments.PLAYER_CREDITS).getCredits();
+                            context.getSource().sendSuccess(() -> Component.literal("当前余额: " + current), false);
+                            return 1;
+                        }))
+                // --- 增加信用点 ---
                 .then(Commands.literal("add")
                         .then(Commands.argument("amount", IntegerArgumentType.integer(0))
                                 .executes(context -> {
@@ -25,15 +32,40 @@ public class ModCommands {
                                     int amount = IntegerArgumentType.getInteger(context, "amount");
                                     PlayerCredits credits = player.getData(ModAttachments.PLAYER_CREDITS);
                                     credits.addCredits(amount);
-                                    context.getSource().sendSuccess(() -> Component.literal("已增加 " + amount), true);
+                                    context.getSource().sendSuccess(() -> Component.literal("已成功增加 " + amount + " 信用点"), true);
                                     return 1;
                                 })))
-                .then(Commands.literal("query")
-                        .executes(context -> {
-                            var player = context.getSource().getPlayerOrException();
-                            int current = player.getData(ModAttachments.PLAYER_CREDITS).getCredits();
-                            context.getSource().sendSuccess(() -> Component.literal("当前余额: " + current), false);
-                            return 1;
-                        })));
+                // --- 减少信用点 ---
+                .then(Commands.literal("delete")
+                        .then(Commands.argument("amount", IntegerArgumentType.integer(0))
+                                .executes(context -> {
+                                    var player = context.getSource().getPlayerOrException();
+                                    int amount = IntegerArgumentType.getInteger(context, "amount");
+                                    PlayerCredits credits = player.getData(ModAttachments.PLAYER_CREDITS);
+
+                                    // 逻辑处理：确保不会扣成负数（可选）
+                                    int current = credits.getCredits();
+                                    int toRemove = Math.min(current, amount);
+                                    credits.addCredits(-toRemove);
+
+                                    context.getSource().sendSuccess(() -> Component.literal("已成功扣除 " + toRemove + " 信用点"), true);
+                                    return 1;
+                                })))
+                // --- 设置信用点 ---
+                .then(Commands.literal("set")
+                        .then(Commands.argument("amount", IntegerArgumentType.integer(0))
+                                .executes(context -> {
+                                    var player = context.getSource().getPlayerOrException();
+                                    int amount = IntegerArgumentType.getInteger(context, "amount");
+                                    PlayerCredits credits = player.getData(ModAttachments.PLAYER_CREDITS);
+
+                                    // 假设 PlayerCredits 类中有 setCredits 方法，如果没有，可以用下面的逻辑：
+                                    // int current = credits.getCredits();
+                                    // credits.addCredits(amount - current);
+                                    credits.setCredits(amount);
+
+                                    context.getSource().sendSuccess(() -> Component.literal("信用点已设置为 " + amount), true);
+                                    return 1;
+                                }))));
     }
 }
